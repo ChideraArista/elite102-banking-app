@@ -9,32 +9,22 @@ def create_tables():
     conn = connect() # Establishes connection within a variable
     cursor = conn.cursor() # Creates a cursor object using established database connection, which allows us to execute SQL commands
 
+# Creating accounts table if it doesn't already exist with the following columns: id (INTEGER; PRIMARY KEY), name (TEXT), balance (REAL)
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS accounts (
+                   id INTEGER PRIMARY KEY AUTOINCREMENT, --Unique identifier for each account; automatically increments with each new entry
+                   name TEXT NOT NULL,  --Name of account holder; cannot be null
+                   balance REAL NOT NULL DEFAULT 0.0 --Current balance of account; cannot be null; defaults to 0.0
                    )
                    ''')
 
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS transactions (
+               id INTEGER PRIMARY KEY AUTOINCREMENT, --Unique identifier for each transactions; automatically increments with each new entry
+               sending_account_id INTEGER NOT NULL, --Foreign key referencing accounts table; indicates account transaction is sent from; cannot be null
+               receiving_account_id INTEGER NOT NULL, --Foreign key referencing accounts table; indicates account transaction is sent to; cannot be null
+               ''')
 
 
 
 
-
-
-
-
-
-print("Hello Elite102!")
-
-conn = sqlite3.connect('fake_database.db')
-cursor = conn.cursor()
-
-cursor.execute("DROP TABLE IF EXISTS favorite_foods")
-cursor.execute("CREATE TABLE favorite_foods (id INTEGER PRIMARY KEY, food_name TEXT, rating REAL)")
-cursor.execute("INSERT INTO favorite_foods (id, food_name, rating) VALUES (1, 'Salad', 5);")
-cursor.execute("INSERT INTO favorite_foods (id, food_name, rating) VALUES(2, 'Ice Cream Sandwich', 4.75);")
-rows = cursor.execute("SELECT * FROM favorite_foods").fetchall()
-for row in rows:
-    print(row)
-
-conn.commit()
-conn.close()
