@@ -41,4 +41,13 @@ def create_tables():
 # --- CREATE ACCOUNT ---
 def create_account(name, deposit):
     conn = connect() # Establishes connection within a variable
+    cursor = conn.cursor() # Creates a cursor object using established database connection, which allows us to execute SQL commands
+
+    cursor.execute(
+        'INSERT INTO accounts (name, balance) VALUES (?, ?)',
+        (name, deposit) # Inserts a new account into the accounts table with provided name and initial deposit amount -- NOTE: (?, ?) is a placeholder for the values that will be safely inserted into the SQL command (name, balance) to prevent SQL injection attacks and ensure proper handling of user input)
+    )
+    conn.commit() # Commits changes to database, ensuring that the newly created account is saved and available for use
+    conn.close() # Closes the database connection, freeing up resources and ensuring that changes are properly saved (good practice)
+    print(f"Account created for {name} with initial deposit of ${deposit:.2f}") # Prints a confirmation message indicating that the account has been successfully created, including the account holder's name and the initial deposit amount formatted to two decimal places (floating-point representation of currency).
 
