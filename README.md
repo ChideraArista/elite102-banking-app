@@ -6,4 +6,4 @@ This is a simple command-line banking application built with Python and the SQLi
 ## SETUP INSTRUCTIONS
 Clone this repository and run the Python file, banking_app.py. The SQLite database will be automatically created on the first run.
 
-#### - FEATURES: Create accounts, deposit and withdraw funds with validation, and check balances. View all accounts and track transactions stored in a local SQLite database.
+##### FEATURES: Create accounts, deposit and withdraw funds with validation, and check balances. View all accounts and track transactions stored in a local SQLite database.
